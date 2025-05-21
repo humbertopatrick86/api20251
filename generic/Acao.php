@@ -2,6 +2,8 @@
 
 namespace generic;
 
+use ReflectionMethod;
+
 class Acao
 {
 
@@ -24,8 +26,28 @@ class Acao
         $end = $this->endpointMetodo();
        
         if ($end) {
-            $obj = new $end->classe();
-          return  $obj->{$end->execucao}();
+            $reflectMetodo = new ReflectionMethod($end->classe,$end->execucao);
+            $parametros = $reflectMetodo->getParameters();
+            $returnParam =$this->getParam();
+            if($parametros){
+                $para=[];
+                //aceita parametros passado no metodo do controller
+                foreach($parametros as $v){
+                        $name = $v->getName();
+                      
+                        if(!isset($returnParam[$name])){
+                            return false;
+                        }
+                        $para[$name] = $returnParam[$name];
+                }
+                //pegar todos os parametros passado pelo endpoint
+              return $reflectMetodo->invokeArgs(new $end->classe(),$para);
+                
+
+            }
+          
+            //  $obj = new $end->classe();
+        //  return  $obj->{$end->execucao}();
         }
         return null;
     }
@@ -37,7 +59,33 @@ class Acao
 
     private function getPost(){
         if($_POST){
-
+            return $_POST;
         }
+        return [];
     }
+     private function getGet(){
+        if($_GET){
+            $get = $_GET;
+            unset($get["param"]);
+            return $get;
+        }
+        return [];
+    }
+    private function getInput(){
+        $input = file_get_contents("php://input");
+         
+        if($input){
+           
+            return json_decode($input,true);
+        }
+        return [];
+    
+    }
+
+
+    public function getParam(){
+        return array_merge($this->getPost(),$this->getGet(),$this->getInput());
+       
+    }
+
 }

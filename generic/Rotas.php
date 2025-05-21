@@ -8,10 +8,11 @@ class Rotas
 
     public function __construct()
     {
+        // rotas para o acesso as chamadas
         $this->endpoints = [
             "cliente" => new Acao([
-                Acao::POST => new Endpoint("Cliente", "teste2"),
-                Acao::GET => new Endpoint("Cliente", "teste")
+                Acao::POST => new Endpoint("Cliente", "teste"),
+                Acao::GET => new Endpoint("Cliente", "teste2")
             ])
 
         ];
@@ -19,7 +20,7 @@ class Rotas
 
     public function executar($rota)
     {
-        
+        // verifica o array associativo se a rota existe
         if (isset($this->endpoints[$rota])) {
           
             $endpoint = $this->endpoints[$rota];

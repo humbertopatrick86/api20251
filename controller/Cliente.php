@@ -44,8 +44,8 @@ class Cliente
         $this->template->layout("\\public\\cliente\\form.php", $resultado);
     }
 
-    public function teste($a,$b){
-        return "teste";
+    public function teste($nome,$telefone){
+        return "$nome,$telefone";
     }
     public function teste2(){
         
