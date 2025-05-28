@@ -10,7 +10,10 @@ class ClienteService extends ClienteDAO{
     }
 
     public function inserir($nome,$endereco){
-        return parent::inserir($nome,$endereco);
+        if(parent::inserir($nome,$endereco)){
+            return "Dados Salvo com Sucesso!";
+        }
+        return null;
     }
     public function alterar($id, $nome, $endereco)
     {

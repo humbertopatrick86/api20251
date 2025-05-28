@@ -11,9 +11,14 @@ class Rotas
         // rotas para o acesso as chamadas
         $this->endpoints = [
             "cliente" => new Acao([
-                Acao::POST => new Endpoint("Cliente", "teste"),
-                Acao::GET => new Endpoint("Cliente", "teste2")
+                Acao::POST => new Endpoint("Cliente", "inserir"),
+                Acao::GET => new Endpoint("Cliente", "listar")
+            ]),
+            "alunos" =>new Acao([
+               
+                Acao::GET => new Endpoint("Aluno", "teste")
             ])
+           
 
         ];
     }

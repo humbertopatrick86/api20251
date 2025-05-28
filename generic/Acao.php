@@ -45,6 +45,7 @@ class Acao
                 
 
             }
+            return $reflectMetodo->invoke(new $end->classe());
           
             //  $obj = new $end->classe();
         //  return  $obj->{$end->execucao}();

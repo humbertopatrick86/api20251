@@ -6,7 +6,7 @@ use service\ClienteService;
 use template\ClienteTemp;
 use template\ITemplate;
 
-class Cliente
+class Aluno
 {
     private ITemplate $template;
     public function __construct()
@@ -18,15 +18,16 @@ class Cliente
     {
         $service = new ClienteService();
         $resultado = $service->listarCliente();
-        return $resultado;
+        $this->template->layout("\\public\\cliente\\listar.php", $resultado);
     }
 
-    public function inserir($nome, $endereco)
+    public function inserir()
     {
-
+        $nome = $_POST["nome"];
+        $endereco = $_POST["endereco"];
         $service = new ClienteService();
         $resultado = $service->inserir($nome, $endereco);
-        return $resultado;
+        header("location: /mvc20251/cliente/lista?info=1");
     }
 
     public function formulario()
@@ -43,9 +44,10 @@ class Cliente
         $this->template->layout("\\public\\cliente\\form.php", $resultado);
     }
 
-    public function teste($nome, $telefone)
-    {
-        return "$nome,$telefone";
+    public function teste(){
+        return "aluno";
     }
-    public function teste2() {}
+    public function teste2(){
+        
+    }
 }

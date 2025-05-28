@@ -28,7 +28,7 @@ class ClienteDAO extends MysqlFactory implements IClienteDAO{
             ":endereco" =>$endereco
         ];
         $retorno = $this->banco->executar($sql,$param);
-        return $retorno;
+        return true;
     }
     public function alterar($id,$nome,$endereco){
         $sql = "update clientes set nome=:nome,endereco = :endereco whrere id=:id";
